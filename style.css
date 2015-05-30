@@ -1,0 +1,143 @@
+/*
+Theme Name:     Story Time
+Description:    
+Author:         ql86
+Template:       twentythirteen
+
+(optional values you can add: Theme URI, Author URI, Version, License, License URI, Tags, Text Domain)
+*/
+
+
+div#navbar.navbar{
+width:60%;
+text-align: center;
+}
+
+
+.nav-menu li:hover > a,
+.nav-menu li a:hover,
+.nav-menu li:focus > a,
+.nav-menu li a:focus {
+background-color: #fff;
+color:#000;
+}
+
+.site{
+max-width: 500000000px;
+}
+
+#colophon{
+display: none;
+}
+
+.nav-menu .current_page_item > a,
+.nav-menu .current_page_ancestor > a,
+.nav-menu .current-menu-item > a,
+.nav-menu .current-menu-ancestor > a 
+{
+color: #FFF;
+background-color: #F18D5A;
+font-weight: bold;
+}
+
+.navbar{
+background-color: #FFF;
+max-width: 1600px;
+width: 100%;
+position:relative;
+z-index: 3;
+margin-top: -10em;
+}
+
+#masthead{
+background-color: #9DD3CC;
+height:15em;
+}
+
+.main-navigation{
+max-width: 100%;
+}
+
+.nav-menu li:hover > a,
+.nav-menu li a:hover,
+.nav-menu li:focus > a,
+.nav-menu li a:focus {
+background-color: #F18D5A;
+color: #fff;
+}
+
+div#navbar.navbar{
+width: 100%;
+}
+
+article#post-22.post-22{
+background-color:#9DD3CC;
+}
+
+div#respond.comment-respond{
+background-color:#9DD3CC;
+}
+
+h1.entry-title{
+margin-top: 10%;
+}
+
+#wpadminbar{
+background: rgba(70,149,134,1);
+}
+
+.site-title {
+	font-size: 80px;
+	font-weight: bold;
+	line-height: 1;
+	margin: 0;
+}
+
+.site-header .home-link {
+  color: #141412;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: 10%;
+  padding: 0 20px;
+  text-decoration: none;
+  width: 20%;
+  text-align:center;
+}
+
+div.nav-menu{
+    width:30%;
+    position:absolute;
+    top:30%;
+}
+div.nav-menu-l{/*left menu*/
+    text-align:center;
+    right:70%;
+}
+div.nav-menu-r{/*right menu*/
+    text-align:center;
+    left:70%;
+}
+div.nav-menu-small{/*right menu*/
+    position:inherit;
+    width:100%;
+    display:none;
+}
+
+
+div.nav-menu>ul>li>a {
+color: #141412;
+display: block;
+font-size: 15px;
+line-height: 1;
+text-decoration: none;
+text-align:center;
+}
+div.nav-menu-l>ul>li>a {/*left menu*/
+padding-left: auto;
+padding-right: auto;
+}
+div.nav-menu-r>ul>li>a {/*right menu*/
+padding-left: auto;
+padding-right: auto;
+}
