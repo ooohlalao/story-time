@@ -144,7 +144,12 @@ img#logo{
     height:auto;
 }
 #wpadminbar .quicklinks ul.ab-top-center li ,
-#wpadminbar .quicklinks ul.ab-top-center,#wpadminbar .quicklinks ul.ab-top-center li a{
+#wpadminbar .quicklinks ul.ab-top-center li a{
    text-align:center;
-   float:center;
+   float:center;   
+}
+#wpadminbar .quicklinks ul.ab-top-center{
+    left:35%;
+    width:30%;
+    position:absolute;
 }
