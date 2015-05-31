@@ -45,10 +45,9 @@ function my_admin_bar_render() {
 function mytheme_admin_bar_render() {
     global $wp_admin_bar;
     //$wp_admin_bar->remove_menu('search');
-    $wp_admin_bar->remove_menu('wp-logo');
     $wp_admin_bar->remove_menu('updates');
-    $wp_admin_bar->remove_menu('comments');
-    $wp_admin_bar->remove_menu('new-content');
+    //$wp_admin_bar->remove_menu('comments');
+    //$wp_admin_bar->remove_menu('new-content');
 }
 add_action('wp_before_admin_bar_render','mytheme_admin_bar_render'); 
 

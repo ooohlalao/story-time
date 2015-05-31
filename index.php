@@ -15,24 +15,19 @@
  */
 
 get_header(); ?>
-
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
-		<?php if ( have_posts() ) : ?>
+        
+        <div class="flash">
 
-			<?php /* The loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
-				<?php get_template_part( 'content', get_post_format() ); ?>
-			<?php endwhile; ?>
+             <embed play="true" quality="high" wmode="transparent" height="760px" width="1000px" src="<?php echo bloginfo ('template_directory');?>/../story-time/flash/main.swf" pluginspage="http://www.macromedia.com/go/getflashplayer">
+            </embed>
+        </div>
 
-			<?php twentythirteen_paging_nav(); ?>
-
-		<?php else : ?>
-			<?php get_template_part( 'content', 'none' ); ?>
-		<?php endif; ?>
+                 
 
 		</div><!-- #content -->
-	</div><!-- #primary -->
+	<!--</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
