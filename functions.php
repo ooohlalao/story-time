@@ -18,14 +18,7 @@ function theme_enqueue_styles() {
 add_action( 'wp_before_admin_bar_render', 'my_admin_bar_render' ); 
 function my_admin_bar_render() { 
     global $wp_admin_bar; 
-    $wp_admin_bar->add_menu( 
-        array( 'parent' => "top-secondary", // 'false' 为添加住菜单，也可以输入父级菜单的 ID  
-        'id' => 'description', // 自定义链接的 ID，  
-        'title' => get_bloginfo('description'), // 自定义链接标题  
-        'href' => admin_url( '/../'), // 链接地址  
-        'meta' => false // 用来设置自定义链接属性选项的一个数组：array( 'html' => '', 'class' => '', 'onclick' => '', target => '', title => '' );  
-        )
-    );
+	
 	$wp_admin_bar->add_group( array(
 		'id'     => 'top-center',
 		'meta'   => array(
@@ -42,6 +35,7 @@ function my_admin_bar_render() {
     );
 }
 
+
 function mytheme_admin_bar_render() {
     global $wp_admin_bar;
     //$wp_admin_bar->remove_menu('search');
@@ -52,15 +46,87 @@ function mytheme_admin_bar_render() {
 add_action('wp_before_admin_bar_render','mytheme_admin_bar_render'); 
 
 
-// 在代码中，我们使用remove_menu(‘comments’)函数来删除“评论”链接，要删除不同的链接或菜单，您可以检查一下/wp-includes/admin-bar.php 这个文件，查找不同链接名称及它们相应的ID。
-// 下面列出其中一部份以供参考：
 
-// my-account                     – 不带头像的个人资料链接
-// my-account-with-avatar  – 带头像的个人资料链接
-// my-blogs                         – 多站点博客中“我的博客”链接
-// get-shortlink                   – 获取简短链接
-// edit                                – 指向“编辑”文章页面的链接
-// new-content                   – “添加新文章”的链接
-// comments                       – “评论”链接
-// appearance                    – “外观”链接
-// updates                         – “更新”链接
+
+add_theme_support('nav-menus');
+
+if ( function_exists( 'register_nav_menus' ) ) {
+
+    register_nav_menus(
+        array(
+            'header_menu' => 'Header Navigation'
+        )
+    );
+}
+
+function wper_so_menu($clsname){
+        wp_nav_menu(
+            array(
+                'menu' => $clsname,
+                'container' => 'div',
+                'menu_class' => 'nav-menu '.$clsname,
+                'menu_id' => 'nav',
+                'echo' => true,
+                'depth' => 2,
+                'walker' => new Walker_Nav_Menu(),
+                'theme_location' => 'header_menu'
+            )
+        );
+}
+
+
+
+// Recently Updated Posts
+function recently_updated_posts($num=10,$days=7,$multi=false) {
+   if( !$recently_updated_posts = get_option('recently_updated_posts') ) {
+       query_posts('post_status=publish&orderby=date&posts_per_page=-1');
+       $i=0;
+	   while ( have_posts() && $i<$num ) : 
+			the_post();
+		   if (current_time('timestamp') - get_the_time('U') < 60*60*24*$days) {
+			   $i++;
+			   if($i==$num||$multi==true)
+			   {
+				   $the_title_value=get_the_title();				   
+					$len=20;
+					$the_title_subvalue = get_substr_keep_wordness($the_title_value,$len);
+                   
+				   $appendString='<a href="'.get_permalink().'" title="'.$the_title_value.'">'
+				   .$the_title_subvalue.'</a>';
+				   if($multi==true) $recently_updated_posts.='<li>'.$appendString.'</li>';
+				   else  $recently_updated_posts.=$appendString;
+			   }
+		   }
+		   else break;
+		endwhile;
+       wp_reset_query();
+       if ( !empty($recently_updated_posts) ) update_option('recently_updated_posts', $recently_updated_posts);
+   }
+   $recently_updated_posts=($recently_updated_posts == '') ? '<li>None data.</li>' : $recently_updated_posts;
+   echo $recently_updated_posts;
+}
+
+function get_substr_keep_wordness($the_title_value,$len)
+{	
+   $the_title_subvalue=mb_substr($the_title_value,0,$len,'utf-8');
+   $title_array = explode(" ", $the_title_value);
+   $firstword_len = strlen($title_array[0]);				   
+	if($firstword_len<$len) 
+	{
+	   while(mb_substr($the_title_subvalue,-1,1,'utf-8')!=" ")
+	   {
+			if($the_title_subvalue==$the_title_value) break;
+			$len++;
+			$the_title_subvalue=mb_substr($the_title_value,0,$len,'utf-8');
+	   }
+	}
+	else $the_title_subvalue = $title_array[0];	
+	
+   if($the_title_subvalue!=$the_title_value) $the_title_subvalue.=" ...";
+   return $the_title_subvalue;
+}
+ 
+function clear_cache_zww() {
+    update_option('recently_updated_posts', ''); // clear recently_updated_posts
+}
+add_action('save_post', 'clear_cache_zww'); // 

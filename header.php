@@ -28,6 +28,8 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
+    <script src="<?php echo bloginfo ('template_directory');?>/../story-time/js/menubar.js"></script>
+    <script src="<?php echo bloginfo ('template_directory');?>/../story-time/jslib/jquery.js"></script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -50,50 +52,15 @@
                     <table border="0" frame=void>
                     <tr class="nav-table">
                     <td class="left">
-					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu nav-menu-l') ); ?>
+                        <?php wper_so_menu('nav-menu-l');?>
                     </td><td class="center">
                     <a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
                         <img id="logo" src="<?php echo bloginfo ('template_directory');?>/../story-time/images/logo.png" alt="<?php bloginfo ('name');?>" />
                     </a>
                     </td><td class="right">
-					<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'nav-menu nav-menu-r') ); ?>
+                        <?php wper_so_menu('nav-menu-r');?>
                     </td>
                     </tr></table>
-                    <script>
-                    //remove duplicate navbars
-                    var nav_l = document.getElementsByClassName('nav-menu-l');
-                    var nav_r = document.getElementsByClassName('nav-menu-r');
-                    removePartial(nav_l,1);//left navbar removes the former half.
-                    removePartial(nav_r,0);//right navbar removes the second half.                    
-                    
-                        //remove item of target from end to header . Removes the former or later half.
-                        // if there are six items in total. 6 5 4 or 3 2 1 will be removed individually. 1 2 3 or 4 5 6 will be left.
-                        // if there are five items in total. 5 4 or 3 2 1 will be removed individually. 1 2 3 or 4 5 will be left.
-                        function removePartial(target,part)
-                        {
-                            var ulist = target[0].children[0];
-                            var cnt = ulist.childElementCount;
-                            
-                            var halfvalue = Math.round(cnt / 2) ;
-                            var start,end;
-                            if(part==0)
-                            {
-                                start = cnt-1; end = halfvalue;
-                            }
-                            else if(part==1)
-                            {
-                                start = halfvalue-1; end = 0;
-                            }
-                            else return;
-                            
-                            for(var item = start ; item > end-1; item -= 1)
-                            {
-                                var chd = ulist.children[item];
-                                ulist.removeChild(chd);
-                                console.log(item,cnt);
-                            }
-                        }
-                    </script>
 					<!--<?php get_search_form(); ?>-->
                     
 				</nav><!-- #site-navigation -->
